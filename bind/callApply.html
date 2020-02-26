@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>call和apply</title>
+	</head>
+	<body>
+	    <script type="text/javascript">
+	    	var name = "Tom";
+	    	var age = 20;
+	    	var person = {
+	    	    name: Jerry,
+	    	    age: 15,
+	    	    sayIntroduce: function(){
+	    	        retrun "Hello, my name is " + this.name + "and i'm " + this.age + "years old!"
+	    	    },
+	    	    sayHobby: function(val1, val2){
+	    	        return "I'm " + this.mame + ", i like " + val1 + "and" + val2 + "."
+	    	    }
+	    	}
+	    	
+	    	var person1 = {
+	    	    name: 'Jack'
+	    	}
+	    	
+	    	console.log(person.sayIntroduce()); // Hello, my name is Jerry and i'm 15 years old'
+	    	//call和apply调用时没有带参数的情况下this指向window
+	    	console.log(person.sayIntroduce.call()); //Hello, my name is Tom and i'm 20 years old'
+	    	console.log(person.sayIntroduce.apply()) //Hello, my name is Tom and i'm 20 years old'
+	    	//当call和apply调用时有参数，this指向第一个参数
+	    	console.log(person.sayIntroduce.call(person1)); //Hello, my name is Jack and i'm undefined years old'
+            console.log(person.sayIntroduce.apply(person1)) //Hello, my name is Jack and i'm undefined years old'
+	    	//当调用的时候有需要传递的参数时call可以直接写多个参数，apply必须将后面的参数放在一个数组当中
+	    	console.log(person.sayHobby.call(person1, 'dance', 'running')); //I'm Jack, i like dancing and running'
+            console.log(person.sayHobby.apply(person1, ['swiming', 'hiking'])) //I'm Jack, i like swiming and hiking'
+	    </script>
+	    
+	</body>
+</html>

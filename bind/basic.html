@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>bind基础用法</title>
+	</head>
+	<body>
+	    <button id="btn">click</button>
+	    <!--bind() 方法创建一个新的函数，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。-->
+	    <script type="text/javascript">
+//	    	var x = 10;
+//	    	function show(){
+//	    	    console.log(this.x);
+//	    	}
+//	    	show();
+//	    	var obj = {
+//	    	    x : 20,
+//	    	}
+//	    	var newShow = show.bind(obj);
+//	    	show();
+//	    	newShow();
+	    	
+	    	var btnO = {
+	    	    init : function(){
+	    	        this.ms = "show message!";
+	    	        this.dom = document.getElementById('btn');
+	    	        this.bindEvent();
+	    	    },
+	    	    bindEvent: function(){
+	    	        this.dom.onclick = this.showMessage.bind(this);
+	    	    },
+	    	    showMessage: function(){
+	    	        
+	    	        alert(this.ms);
+	    	    }
+	    	}
+	    	btnO.init();
+	    	
+	    	
+	    	//总结
+	    	//1.函数A调用bind方法时 需要传递的参数o, x,y,z.....
+	    	//2.调用bind方法后会返回新的函数B
+	    	//3.函数B在执行的时候 具体的功能实际上还是使用的A， 只是this指向变成了o
+	    	//4.函数B在执行的时候 传递的参数会拼接到x,y,z后面一并在内部传递给A执行
+	    	//5.如果新函数B作为一个构造函数 new B（） 构造函数依旧是A 而且在这种情况下参数o不会起到任何作用 this指向不变
+	    	
+	    	Function.prototype.newBind = function(target){
+	    	    // target改变返回函数执行的this指向
+	    	    var self = this;
+	    	    var arguments = [].slice.call(arguments, 1)
+	    	    var f = function(){
+	    	        //真正执行的是self
+	    	        var _arg = [].slice.call(arguments, 0);
+	    	        return self.apply(target || window, arguments.contact(_arg))
+	    	    }
+	    	    retrun f;
+	    	}
+	    	
+	    	
+	    	function showMessage(){
+	    	    
+	    	}
+	    	
+	    	var newO = {
+	    	    x: 55
+	    	}
+	    	var newShowMessage = showMessage.newBind();
+	    	
+	    	
+	    	
+	    	
+	    </script>
+	</body>
+</html>
