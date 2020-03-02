@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>防抖</title>
+	</head>
+	<body>
+	    <input type="text" id="oIn" />
+	    <script type="text/javascript">
+	        var timer = null;
+	    	var oBj = document.getElementById('oIn');
+	    	function ajaxRequest(value){
+	    	    console.log(this.value, value);
+	    	}
+	    	
+	    	function debounce(fn, wait){
+                return function(){
+                    var arg = arguments;
+                    var __self = this;
+                    clearTimeout(timer);
+                    timer = setTimeout(function(){
+                        fn.apply(__self, arg);
+                    }, wait);
+                }
+                
+	    	}
+	    	oBj.oninput = debounce(ajaxRequest, 1000);
+	    </script>
+	</body>
+</html>
